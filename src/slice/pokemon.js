@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = { name: '', gender: '', hp: 0, maxHp: 0, exp: 0, lv: 0, isEmpty: true  }
+const initialState = { name: '', gender: '', hp: 0, maxHp: 0, exp: 0, lv: 0,img: '', isEmpty: true  }
+
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
@@ -8,7 +9,6 @@ const pokemonSlice = createSlice({
   reducers: {
     catchPokemon(state, action) {
       const payload = action.payload
-      console.log(action);
 
       state.name = payload.name;
       state.gender = payload.gender;
@@ -16,6 +16,7 @@ const pokemonSlice = createSlice({
       state.maxHp = payload.maxHp;
       state.exp = payload.exp;
       state.lv = payload.lv;
+      state.img = payload.img
       state.isEmpty = false;
     },
     update(state, action) {
@@ -29,10 +30,11 @@ const pokemonSlice = createSlice({
       state.lv++;
     },
     clear(state) {
-      state = { name: '', gender: '', hp: 0, maxHp: 0, exp: 0, lv: 0, isEmpty: true  }
+      state = { name: '', gender: '', hp: 0, maxHp: 0, exp: 0, lv: 0,img: '', isEmpty: true  }
     }
   },
 })
+
 
 export const { catchPokemon, update, lvUp, clear } = pokemonSlice.actions
 export default pokemonSlice.reducer

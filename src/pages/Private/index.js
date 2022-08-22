@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 function Private() {
   const navigate = useNavigate();
   const pokemon = useSelector( state => state.pokemon );
-  const {name, gender, hp, maxHp, exp, lv, isEmpty} = pokemon
+  const {name, gender, hp, maxHp, exp, lv,img, isEmpty} = pokemon
 
   useEffect(() => {
     if ( isEmpty ) {
@@ -17,9 +17,11 @@ function Private() {
 
   return (
     <div className="App">
-      <p>{ name } { gender } Lv { lv }</p>
-      <p>{ hp } / { maxHp }</p>
-      <p>Exp: { exp }</p>
+      <img src={ img } alt='' />
+      <p>{ name }</p>
+      <p> { gender }</p>
+      <p>HP: { hp } / { maxHp }</p>
+      <p> Lv { lv } Exp: { exp }</p>
       <Outlet />
     </div>
   );
