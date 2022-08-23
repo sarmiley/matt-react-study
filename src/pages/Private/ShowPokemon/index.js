@@ -1,16 +1,21 @@
 import { useNavigate } from 'react-router-dom'
 import { catchPokemon } from 'slice/pokemon'
 import { useDispatch } from 'react-redux'
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useQueryPokemonMutation } from 'services/pokemonService'
+import { useSelector } from 'react-redux'
+import PokemonRegister from './components/PokemonRegister';
 
-function Welcome() {
+
+function ShowPokemon() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch()
 
   const [ queryPokemon ] = useQueryPokemonMutation()
 
+  const pokemon = useSelector( state => state.pokemon );
+  const {name, gender, hp, maxHp, exp, lv,img } = pokemon
 
 
   const initPokemonInfo = useCallback(async (pokemonId) => {
@@ -19,6 +24,11 @@ function Welcome() {
     dispatch(catchPokemon(pokemonInfo))
 
   }, [queryPokemon, dispatch])
+
+  useEffect(() => {
+    const pokemonId = parseInt(Math.random() * 907)
+    initPokemonInfo(pokemonId)
+  }, [initPokemonInfo])
 
   function back (e) {
     return navigate('/home', {replace: true});
@@ -31,9 +41,19 @@ function Welcome() {
 
   return (
     <>
-      <button onClick={catchOtherPokemon}>換一隻</button><button onClick={back}>返回</button>
+      <div>
+        <img src={ img } alt='' />
+        <p>{ name }</p>
+        <p> { gender }</p>
+        <p>HP: { hp } / { maxHp }</p>
+        <p> Lv { lv } Exp: { exp }</p>
+        <button onClick={catchOtherPokemon}>換一隻</button><button onClick={back}>返回</button>
+      </div>
+      <div style={{marginTop: '50px'}}>
+        <PokemonRegister />
+      </div>
     </>
   );
 }
 
-export default Welcome;
+export default ShowPokemon;

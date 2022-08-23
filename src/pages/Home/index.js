@@ -32,8 +32,8 @@ function Home() {
 
 
   return (
-    <div className="App">
-      <Link className="welcome-link" to="/private/welcome" > Welcome </Link>
+    <div>
+      <Link className="welcome-link" to="/private/show" > Show Pokemon </Link>
     </div>
   );
 }
